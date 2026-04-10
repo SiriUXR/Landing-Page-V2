@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabriele Suthasiri Portfolio</title>
+    <script type="module" crossorigin src="./assets/index-CZ9WRNXm.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-Do_4Rbym.css">
+    <style>
+      /* ── NEW COLOR PALETTE ─────────────────────────────────────────────
+         Deep Navy + Electric Indigo + Warm Amber accent
+      ──────────────────────────────────────────────────────────────────── */
+
+      /* Override hero / CTA gradient */
+      .hero-gradient {
+        background: linear-gradient(135deg, #1e1b4b, #312e81, #4338ca) !important;
+      }
+
+      /* Body background */
+      body {
+        background-color: #f8f7ff !important;
+      }
+
+      /* Nav bar */
+      nav, header {
+        background-color: #ffffff !important;
+        border-bottom-color: #e0e7ff !important;
+      }
+
+      /* Primary text */
+      .text-zinc-900, h1, h2, h3 {
+        color: #1e1b4b !important;
+      }
+      .text-zinc-600, .text-zinc-500 {
+        color: #4c4a6d !important;
+      }
+
+      /* Accent / highlight spans */
+      .text-zinc-400 {
+        color: #7c7aaa !important;
+      }
+
+      /* Section backgrounds */
+      .bg-zinc-50, .bg-zinc-100 {
+        background-color: #ede9fe !important;
+      }
+
+      /* Borders */
+      .border-zinc-200, .border-zinc-100 {
+        border-color: #c7d2fe !important;
+      }
+
+      /* Buttons – primary */
+      button.bg-zinc-900,
+      a.bg-zinc-900,
+      [class*="bg-zinc-900"] {
+        background-color: #4338ca !important;
+        color: #ffffff !important;
+      }
+      button.bg-zinc-900:hover,
+      a.bg-zinc-900:hover,
+      [class*="bg-zinc-900"]:hover {
+        background-color: #3730a3 !important;
+      }
+
+      /* Hover text */
+      a:hover .hover\:text-zinc-900,
+      .hover\:text-zinc-900:hover {
+        color: #4338ca !important;
+      }
+
+      /* Link underline accent */
+      .link-underline::after {
+        background-color: #f59e0b !important;
+      }
+
+      /* Project cards */
+      .bg-white {
+        background-color: #ffffff !important;
+        box-shadow: 0 2px 16px 0 rgba(67,56,202,0.07) !important;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #1e1b4b !important;
+        color: #e0e7ff !important;
+        border-top-color: #312e81 !important;
+      }
+      footer .text-zinc-600,
+      footer .text-zinc-500,
+      footer .text-zinc-400 {
+        color: #a5b4fc !important;
+      }
+      footer .text-zinc-900 {
+        color: #e0e7ff !important;
+      }
+      footer a {
+        color: #a5b4fc !important;
+      }
+      footer a:hover {
+        color: #f59e0b !important;
+      }
+
+      /* Skills / tag pills */
+      [class*="rounded-full"][class*="bg-zinc"] {
+        background-color: #ede9fe !important;
+        color: #4338ca !important;
+        border-color: #c7d2fe !important;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar-thumb {
+        background: #a5b4fc;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      /* ──────────────────────────────────────────────────────────────────
+         DOM-PATCHER: runs after React has rendered
+         – Replaces Twitter → Facebook (icon + label + href)
+         – Updates all three social link hrefs
+         – Wires "Get in Touch" button to mailto
+      ────────────────────────────────────────────────────────────────── */
+
+      // Facebook SVG path (official "f" logo)
+      const FACEBOOK_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`;
+
+      const SOCIAL_MAP = {
+        'twitter.com':  { href: 'https://www.facebook.com/share/18cfzAEYmV/',   label: 'Facebook', svg: FACEBOOK_SVG },
+        'linkedin.com': { href: 'https://www.linkedin.com/in/gabriele-suthasiri-0156463b8?utm_source=share_via&utm_content=profile&utm_medium=member_android', label: 'LinkedIn', svg: null },
+        'behance.net':  { href: 'https://www.behance.net/gabrielsuthasi',        label: 'Behance',  svg: null },
+      };
+
+      function patchDOM() {
+        let patched = 0;
+
+        /* ── 1. Social nav links ───────────────────────────── */
+        document.querySelectorAll('a[href]').forEach(a => {
+          const href = a.getAttribute('href') || '';
+          for (const [key, info] of Object.entries(SOCIAL_MAP)) {
+            if (href.includes(key)) {
+              a.setAttribute('href', info.href);
+              a.setAttribute('target', '_blank');
+              a.setAttribute('rel', 'noopener noreferrer');
+
+              // Replace Twitter icon + label with Facebook
+              if (key === 'twitter.com') {
+                // Swap SVG
+                const svgEl = a.querySelector('svg');
+                if (svgEl) {
+                  const tmp = document.createElement('span');
+                  tmp.innerHTML = info.svg;
+                  const newSvg = tmp.firstElementChild;
+                  if (svgEl.className) newSvg.setAttribute('class', svgEl.className);
+                  svgEl.replaceWith(newSvg);
+                }
+                // Swap text label
+                a.querySelectorAll('span').forEach(span => {
+                  if (span.textContent.trim() === 'Twitter') {
+                    span.textContent = 'Facebook';
+                  }
+                });
+              }
+              patched++;
+            }
+          }
+        });
+
+        /* ── 2. "Get in Touch" button → mailto ────────────── */
+        document.querySelectorAll('button, a').forEach(el => {
+          if (el.textContent.trim().toLowerCase().includes('get in touch')) {
+            const tag = el.tagName.toLowerCase();
+            if (tag === 'button') {
+              el.style.cursor = 'pointer';
+              // Avoid adding duplicate listeners
+              if (!el.dataset.mailPatched) {
+                el.dataset.mailPatched = '1';
+                el.addEventListener('click', (e) => {
+                  e.preventDefault();
+                  window.location.href = 'mailto:gab.suthasiri@gmail.com';
+                });
+              }
+            } else {
+              el.setAttribute('href', 'mailto:gab.suthasiri@gmail.com');
+            }
+            patched++;
+          }
+        });
+
+        return patched;
+      }
+
+      // React needs a tick to hydrate; poll until elements appear
+      function tryPatch(attempts) {
+        attempts = attempts || 0;
+        const count = patchDOM();
+        if (count === 0 && attempts < 40) {
+          setTimeout(function() { tryPatch(attempts + 1); }, 150);
+        }
+      }
+
+      // Re-patch whenever the DOM changes (covers SPA navigation)
+      const observer = new MutationObserver(function() { patchDOM(); });
+
+      window.addEventListener('DOMContentLoaded', function() {
+        tryPatch(0);
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    </script>
+  </body>
+</html>
