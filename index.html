@@ -317,6 +317,100 @@ Error generating stack: `+i.message+`
             card.appendChild(cta);
           }
         });
+        var cards=document.querySelectorAll('article.project-card');
+        var targetCard=null;
+        Array.prototype.forEach.call(cards,function(card){
+          if(targetCard){return;}
+          var cardText=(card.textContent||'').toLowerCase();
+          if(cardText.indexOf('shopping')!==-1&&cardText.indexOf('ai mode')!==-1){
+            targetCard=card;
+          }
+        });
+        var firstCard=cards&&cards[0];
+        if(targetCard&&firstCard&&targetCard!==firstCard){
+          var parent=targetCard.parentElement;
+          if(parent){
+            var firstCardNext=firstCard.nextSibling===targetCard?firstCard:firstCard.nextSibling;
+            parent.insertBefore(targetCard,firstCard);
+            if(firstCardNext){
+              parent.insertBefore(firstCard,firstCardNext);
+            }else{
+              parent.appendChild(firstCard);
+            }
+            patched++;
+          }
+        }
+        if(targetCard&&!targetCard.dataset.searchLabsLinkPatched){
+          var openSearchLabs=function(){
+            window.location.href='search-labs.html';
+          };
+          targetCard.style.cursor='pointer';
+          targetCard.setAttribute('role','link');
+          targetCard.setAttribute('tabindex','0');
+          targetCard.addEventListener('click',openSearchLabs);
+          targetCard.addEventListener('keydown',function(evt){
+            if(evt.key==='Enter'||evt.key===' '){
+              evt.preventDefault();
+              openSearchLabs();
+            }
+          });
+          targetCard.dataset.searchLabsLinkPatched='1';
+          patched++;
+        }
+        if(targetCard&&!targetCard.dataset.videoPatched){
+          var mediaWrap=targetCard.querySelector('div.relative.aspect-\\[4\\/5\\].overflow-hidden');
+          if(mediaWrap){
+            mediaWrap.style.position='relative';
+            mediaWrap.style.cursor='pointer';
+            mediaWrap.addEventListener('click',function(evt){
+              evt.preventDefault();
+              evt.stopPropagation();
+              window.location.href='search-labs.html';
+            });
+            var existingImage=mediaWrap.querySelector('img');
+            var video=document.createElement('video');
+            video.src='Video 1.mp4';
+            video.setAttribute('playsinline','');
+            video.setAttribute('autoplay','');
+            video.setAttribute('muted','');
+            video.setAttribute('loop','');
+            video.defaultMuted=true;
+            video.muted=true;
+            video.volume=0;
+            video.className='w-full h-full object-cover transition-transform duration-700 group-hover:scale-105';
+            video.style.display='none';
+            video.style.position='absolute';
+            video.style.inset='0';
+            video.style.zIndex='1';
+
+            var forceSilent=function(){
+              video.defaultMuted=true;
+              video.muted=true;
+              video.volume=0;
+            };
+            video.addEventListener('play',forceSilent);
+            video.addEventListener('volumechange',forceSilent);
+
+            video.addEventListener('loadeddata',function(){
+              forceSilent();
+              video.style.display='block';
+              if(existingImage){existingImage.style.visibility='hidden';}
+            });
+            video.addEventListener('error',function(){
+              video.style.display='none';
+              if(existingImage){existingImage.style.visibility='visible';}
+            });
+
+            var overlay=document.createElement('div');
+            overlay.className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500';
+            overlay.style.zIndex='2';
+
+            mediaWrap.appendChild(video);
+            mediaWrap.appendChild(overlay);
+            targetCard.dataset.videoPatched='1';
+            patched++;
+          }
+        }
         patched+=applyLavaHero();
         patched+=applyTickerDesign();
         return patched;

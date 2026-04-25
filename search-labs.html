@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector UI Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --text: #1e1b2d;
+        --muted: #635f76;
+        --purple: #be86ed;
+        --purple-soft: #efdffb;
+        --stroke: #e8e5ef;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--text);
+        background: linear-gradient(180deg, #f5ebff 0%, #ffffff 55%);
+      }
+      .page {
+        width: min(1180px, calc(100% - 3rem));
+        margin: 1.25rem auto 3rem;
+      }
+      .top-actions { margin-bottom: 2.3rem; }
+      .home-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.42rem;
+        text-decoration: none;
+        font-size: 0.75rem;
+        color: #3d3657;
+        border: 1px solid var(--stroke);
+        border-radius: 999px;
+        padding: 0.34rem 0.7rem;
+        background: #ffffffd9;
+      }
+      .home-icon {
+        width: 0.9rem;
+        height: 0.9rem;
+        border-radius: 99px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0ebf8;
+        font-size: 0.62rem;
+      }
+      .hero { text-align: center; }
+      h1 {
+        margin: 0;
+        font-family: "Times New Roman", Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(2.1rem, 6.2vw, 4.1rem);
+        letter-spacing: -0.02em;
+      }
+      .subtitle {
+        margin: 0.9rem auto 1.7rem;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+      .meta-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2.1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+      }
+      .meta-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.96rem;
+        font-weight: 600;
+      }
+      .dot {
+        width: 0.8rem;
+        height: 0.8rem;
+        border-radius: 99px;
+        background: radial-gradient(circle at 35% 35%, #dfb7ff, #b579ec);
+        box-shadow: 0 0 0 3px #f4e9ff;
+      }
+      .mock-window {
+        border: 1px solid #dedbe7;
+        border-radius: 12px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(132, 124, 160, 0.12);
+      }
+      .window-header {
+        height: 34px;
+        background: #ebeaee;
+        border-bottom: 1px solid #ddd9e8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0.8rem;
+      }
+      .window-controls {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .window-controls i {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #bdb7c9;
+        display: inline-block;
+      }
+      .tab-bar {
+        padding: 0.45rem 0.6rem;
+        border-bottom: 1px solid #ece9f2;
+        font-size: 0.85rem;
+        color: #5f5a72;
+      }
+      .canvas {
+        height: 430px;
+        background:
+          radial-gradient(680px 340px at 60% 5%, rgba(202, 180, 243, 0.55), transparent 65%),
+          linear-gradient(145deg, #e9f1ff 0%, #ece4ff 100%);
+        position: relative;
+      }
+      .flask {
+        position: absolute;
+        left: 50%;
+        bottom: 38px;
+        transform: translateX(-50%);
+        font-size: 4rem;
+        color: #1f2f6c;
+      }
+      @media (max-width: 760px) {
+        .page { width: calc(100% - 1.2rem); }
+        .meta-row { gap: 1rem; }
+        .canvas { height: 280px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="top-actions">
+        <a class="home-btn" href="./index.html"><span class="home-icon">🏠</span>Home</a>
+      </div>
+
+      <section class="hero">
+        <h1>Vector UI Development</h1>
+        <p class="subtitle">A home for cutting-edge experimental interface features.</p>
+
+        <div class="meta-row">
+          <div class="meta-item"><span class="dot"></span>Vector Studio</div>
+          <div class="meta-item"><span class="dot"></span>7 months</div>
+          <div class="meta-item"><span class="dot"></span>February 2024</div>
+          <div class="meta-item"><span class="dot"></span>Role: UX Lead</div>
+        </div>
+
+        <div class="mock-window">
+          <div class="window-header">
+            <div class="window-controls"><i></i><i></i><i></i></div>
+            <div>Vector Labs</div>
+            <div class="window-controls"><i></i><i></i><i></i></div>
+          </div>
+          <div class="tab-bar">Vector Labs URL</div>
+          <div class="canvas">
+            <div class="flask">⚗</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
