@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 270 60% 99%;
+    --foreground: 246 22% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 246 22% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 246 22% 20%;
+    --primary: 271 55% 62%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 260 30% 96%;
+    --secondary-foreground: 246 22% 20%;
+    --muted: 260 30% 96%;
+    --muted-foreground: 250 12% 45%;
+    --accent: 271 55% 62%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 100% 66%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 258 31% 90%;
+    --input: 258 31% 90%;
+    --ring: 271 55% 62%;
+    --radius: 0.75rem;
+    --green: 150 55% 45%;
+    --yellow: 45 92% 55%;
+    --red: 0 100% 66%;
+    --cyan: 271 55% 62%;
+    --surface: 0 0% 100%;
+    --surface-light: 260 30% 96%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer components {
+  .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes bounce-chevron {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+@keyframes rotate-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-bounce-chevron {
+  animation: bounce-chevron 1.5s ease-in-out infinite alternate;
+}
+
+.animate-rotate-border {
+  animation: rotate-border 4s linear infinite;
+}
+
+/* Horizontal scroll snap */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-snap-start {
+  scroll-snap-align: start;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth lenis scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
